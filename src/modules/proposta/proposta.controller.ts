@@ -40,6 +40,6 @@ export class PropostaController {
 
   @Get(':id')
   async findOne(@Param('id') id: number): Promise<Proposta | null> {
-    return this.findOne(id);
+    return this.propostaService.findOne(id);
   }
 }
