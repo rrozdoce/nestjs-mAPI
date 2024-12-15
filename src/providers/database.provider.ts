@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Proposta } from 'src/modules/proposta/entities/proposta.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'test.sqlite',
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      entities: [Proposta],
       synchronize: true, // Apenas para desenvolvimento/teste
       logging: true,
     }),

@@ -22,11 +22,11 @@ export class PropostaService {
     await this.propostaRepository.save(proposta);
   }
 
-  findAll(): Promise<Proposta[]> {
+  async findAll(): Promise<Proposta[]> {
     return this.propostaRepository.find();
   }
 
-  findOne(id: number): Promise<Proposta | null> {
+  async findOne(id: number): Promise<Proposta | null> {
     return this.propostaRepository.findOneBy({ id });
   }
 
