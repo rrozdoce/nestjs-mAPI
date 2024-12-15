@@ -1,6 +1,6 @@
 export class CreatePropostaDto {
   name: string;
   description: string;
-  identification: string;
-  dueDate: Date;
+  //identification: string;
+  //dueDate: Date;
 }

@@ -12,7 +12,11 @@ export class PropostaService {
   ) {}
 
   async create(PropostaDto: CreatePropostaDto) {
+    // buscar pelo numero de proposta na data de hoje, se nao encontrar, numeroDePropostas = 0
     const proposta = Object.assign(new Proposta(), PropostaDto);
+    // criar data atual(hoje) obs: somente o dia eu acho
+    // inserir data de hoje na proposta atual obs: acho q dia,data,hora etc
+    // criar o identificador usando a data de hoje + (numeroDePropostas + 1)
     await this.propostaRepository.save(proposta);
   }
 

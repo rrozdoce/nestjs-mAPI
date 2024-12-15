@@ -8,7 +8,7 @@ import { Proposta } from 'src/modules/proposta/entities/proposta.entity';
       type: 'sqlite',
       database: 'test.sqlite',
       entities: [Proposta],
-      synchronize: true, // Apenas para desenvolvimento/teste
+      synchronize: true, // teste
       logging: true,
     }),
   ],
