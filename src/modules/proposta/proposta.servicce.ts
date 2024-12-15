@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Proposta } from './entities/proposta.entity';
-import { Repository } from 'typeorm';
+import { Between, Repository } from 'typeorm';
 import { CreatePropostaDto } from './dto/proposta.dto';
 
 @Injectable()
@@ -13,11 +13,33 @@ export class PropostaService {
 
   async create(PropostaDto: CreatePropostaDto) {
     // buscar pelo numero de proposta na data de hoje, se nao encontrar, numeroDePropostas = 0
-    const proposta = Object.assign(new Proposta(), PropostaDto);
-    // criar data atual(hoje) obs: somente o dia eu acho
-    // inserir data de hoje na proposta atual obs: acho q dia,data,hora etc
-    // criar o identificador usando a data de hoje + (numeroDePropostas + 1)
-    await this.propostaRepository.save(proposta);
+    const hoje = new Date();
+    const inicioDia = new Date(
+      hoje.getFullYear(),
+      hoje.getMonth(),
+      hoje.getDate(),
+    );
+    const fimDia = new Date(
+      hoje.getFullYear(),
+      hoje.getMonth(),
+      hoje.getDate() + 1,
+    );
+    const numeroDePropostas = await this.propostaRepository.count({
+      where: {
+        dueDate: Between(inicioDia, fimDia),
+      },
+    });
+
+    const dataFormatada =
+      '' +
+      hoje.toLocaleDateString('pt-BR').replace(/\//g, '-') +
+      ':' +
+      `${numeroDePropostas + 1}`;
+    const proposta = new Proposta();
+    proposta.dueDate = hoje;
+    proposta.identification = dataFormatada;
+    const ObjectProposta = Object.assign(proposta, PropostaDto);
+    await this.propostaRepository.save(ObjectProposta);
   }
 
   async changeProposta(id: number, propostaAtt: CreatePropostaDto) {
