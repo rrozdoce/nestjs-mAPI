@@ -12,7 +12,6 @@ export class PropostaService {
   ) {}
 
   async create(PropostaDto: CreatePropostaDto) {
-    // buscar pelo numero de proposta na data de hoje, se nao encontrar, numeroDePropostas = 0
     const hoje = new Date();
     const inicioDia = new Date(
       hoje.getFullYear(),
